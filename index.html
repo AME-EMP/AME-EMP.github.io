@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Inkwell Press · Ebooks</title>
+<style>
+:root{--accent:#7c5cff;--accent2:#ff5c93;--bg:#faf8ff;--card:#fff;--text:#1d1b2e;--muted:#6b6880;--font:'Georgia',serif;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12111c;--card:#1c1a2b;--text:#f1eefc;--muted:#a09cba}}
+:root[data-theme="dark"]{--bg:#12111c;--card:#1c1a2b;--text:#f1eefc;--muted:#a09cba}
+html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.6;overflow-x:hidden}
+.sans{font-family:system-ui,-apple-system,'Segoe UI',sans-serif}
+nav{display:flex;justify-content:space-between;align-items:center;padding:18px 6vw;position:relative;z-index:2}
+.logo{font-weight:700;font-size:1.3rem;letter-spacing:.5px}
+nav a{color:var(--muted);text-decoration:none;margin-left:22px;font-size:.95rem}
+nav a:hover{color:var(--accent)}
+.hero{position:relative;text-align:center;padding:90px 6vw 110px;overflow:hidden}
+.blob{position:absolute;border-radius:50%;filter:blur(60px);opacity:.45;z-index:0}
+.b1{width:340px;height:340px;background:var(--accent);top:-80px;left:-60px}
+.b2{width:300px;height:300px;background:var(--accent2);bottom:-90px;right:-40px}
+.b3{width:200px;height:200px;background:var(--accent);top:40%;right:25%;opacity:.25}
+body[data-anim="on"] .b1{animation:float 9s ease-in-out infinite}
+body[data-anim="on"] .b2{animation:float 11s ease-in-out infinite reverse}
+body[data-anim="on"] .b3{animation:float 7s ease-in-out infinite}
+@keyframes float{50%{transform:translate(40px,30px) scale(1.12)}}
+.hero>*:not(.blob){position:relative;z-index:1}
+h1{font-size:clamp(2.2rem,6vw,4rem);margin:0 0 14px;line-height:1.1}
+h1 span{background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{max-width:560px;margin:0 auto 28px;color:var(--muted);font-size:1.15rem}
+.btn{display:inline-block;border:0;cursor:pointer;background:linear-gradient(90deg,var(--accent),var(--accent2));color:#fff;padding:14px 30px;border-radius:40px;font:600 1rem system-ui,sans-serif;text-decoration:none;transition:transform .2s,box-shadow .2s}
+.btn:hover{transform:translateY(-3px);box-shadow:0 10px 24px -8px var(--accent)}
+body[data-anim="on"] .btn.pulse{animation:pulse 2.4s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--accent) 50%,transparent)}70%,100%{box-shadow:0 0 0 18px transparent}}
+section{padding:60px 6vw}
+h2{font-size:2rem;margin:0 0 30px;text-align:center}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:34px;max-width:1100px;margin:0 auto}
+.book{cursor:pointer;text-align:center;perspective:900px}
+.cover{aspect-ratio:2/3;border-radius:6px 12px 12px 6px;padding:22px 18px;display:flex;flex-direction:column;justify-content:space-between;color:#fff;text-align:left;position:relative;overflow:hidden;box-shadow:-6px 8px 22px -6px rgba(0,0,0,.35);transition:transform .45s,box-shadow .45s;transform-origin:left center}
+.cover::before{content:"";position:absolute;left:0;top:0;bottom:0;width:10px;background:rgba(0,0,0,.2)}
+.cover::after{content:"";position:absolute;width:150%;height:150%;top:-30%;left:-20%;background:radial-gradient(circle at 70% 20%,rgba(255,255,255,.28),transparent 45%)}
+.book:hover .cover{transform:rotateY(-18deg) translateY(-6px);box-shadow:-14px 16px 30px -8px rgba(0,0,0,.4)}
+.cover .em{font-size:3rem;position:relative;z-index:1}
+.cover .t{font-weight:700;font-size:1.25rem;line-height:1.2;position:relative;z-index:1}
+.cover .a{font-size:.8rem;opacity:.85;position:relative;z-index:1}
+.book h3{margin:16px 0 2px;font-size:1.05rem}
+.book .price{color:var(--accent);font:600 .95rem system-ui,sans-serif}
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .7s,transform .7s}
+.reveal.in,body[data-anim="off"] .reveal{opacity:1;transform:none}
+.signup{max-width:560px;margin:0 auto;background:var(--card);border-radius:22px;padding:36px;text-align:center;box-shadow:0 12px 40px -18px rgba(0,0,0,.3)}
+.signup input{padding:13px 18px;border-radius:40px;border:1px solid color-mix(in srgb,var(--muted) 40%,transparent);background:var(--bg);color:var(--text);width:100%;max-width:260px;font:1rem system-ui,sans-serif;margin:0 6px 10px 0}
+footer{text-align:center;color:var(--muted);padding:40px 6vw 110px;font:.9rem system-ui,sans-serif}
+.modal{position:fixed;inset:0;background:rgba(10,8,20,.6);display:none;align-items:center;justify-content:center;padding:20px;z-index:50}
+.modal.open{display:flex}
+.sheet{background:var(--card);border-radius:22px;max-width:720px;width:100%;max-height:90vh;overflow:auto;display:grid;grid-template-columns:200px 1fr;gap:26px;padding:28px;position:relative}
+body[data-anim="on"] .modal.open .sheet{animation:pop .35s}
+@keyframes pop{from{transform:scale(.9);opacity:0}}
+.sheet .cover{box-shadow:0 8px 20px -8px rgba(0,0,0,.4)}
+.x{position:absolute;top:12px;right:16px;background:none;border:0;font-size:1.6rem;color:var(--muted);cursor:pointer}
+@media(max-width:620px){.sheet{grid-template-columns:1fr}.sheet .cover{max-width:180px}}
+#fab{position:fixed;right:18px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:40;width:54px;height:54px;border-radius:50%;border:0;background:var(--text);color:var(--bg);font-size:1.5rem;cursor:pointer;box-shadow:0 8px 20px rgba(0,0,0,.35)}
+#panel{position:fixed;right:18px;bottom:calc(84px + env(safe-area-inset-bottom,0px));z-index:40;width:270px;background:var(--card);border-radius:18px;padding:18px;box-shadow:0 14px 40px rgba(0,0,0,.35);display:none;font:.9rem system-ui,sans-serif}
+#panel.open{display:block}
+#panel h4{margin:0 0 12px}
+#panel label{display:flex;justify-content:space-between;align-items:center;margin:10px 0;color:var(--muted)}
+#panel select,#panel input[type=color]{border:1px solid color-mix(in srgb,var(--muted) 40%,transparent);background:var(--bg);color:var(--text);border-radius:8px;padding:4px;height:32px}
+.sw{display:flex;gap:8px;margin:6px 0 12px}
+.sw button{width:30px;height:30px;border-radius:50%;border:2px solid var(--card);cursor:pointer;outline:1px solid color-mix(in srgb,var(--muted) 40%,transparent)}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body data-anim="on">
+<nav class="sans"><div class="logo">📖 Inkwell Press</div><div><a href="#books">Books</a><a href="#join">Newsletter</a></div></nav>
+
+<header class="hero">
+  <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+  <h1>Stories &amp; guides you can <span>carry anywhere</span></h1>
+  <p>Beautifully made ebooks, delivered instantly. Pick a title, read it on any device.</p>
+  <a class="btn pulse" href="#books">Browse the books</a>
+</header>
+
+<section id="books">
+  <h2>The Library</h2>
+  <div class="grid" id="grid"></div>
+</section>
+
+<section id="join">
+  <div class="signup reveal">
+    <h2 style="margin-bottom:10px">Get a free chapter</h2>
+    <p style="color:var(--muted);margin:0 0 20px">Join the list for new releases and sample chapters.</p>
+    <input id="email" type="email" placeholder="you@email.com">
+    <button class="btn" id="joinBtn">Send it to me</button>
+    <p id="joinMsg" class="sans" style="margin:12px 0 0;color:var(--accent)"></p>
+  </div>
+</section>
+
+<footer>© 2026 Inkwell Press · Made with care</footer>
+
+<div class="modal" id="modal"><div class="sheet" id="sheet"></div></div>
+
+<button id="fab" title="Customize the look" aria-label="Customize">🎨</button>
+<div id="panel">
+  <h4>Customize your site</h4>
+  <div class="sw" id="sw"></div>
+  <label>Accent <input type="color" id="c1" value="#7c5cff"></label>
+  <label>Second color <input type="color" id="c2" value="#ff5c93"></label>
+  <label>Font
+    <select id="font">
+      <option value="Georgia,serif">Classic serif</option>
+      <option value="system-ui,sans-serif">Clean sans</option>
+      <option value="'Trebuchet MS',sans-serif">Friendly</option>
+      <option value="'Courier New',monospace">Typewriter</option>
+    </select></label>
+  <label>Theme
+    <select id="theme"><option value="auto">Auto</option><option value="light">Light</option><option value="dark">Dark</option></select></label>
+  <label>Animations <input type="checkbox" id="anim" checked></label>
+</div>
+
+<script>
+/* ===== EDIT YOUR BOOKS HERE =====
+   Each book: title, author, price, emoji (cover graphic), two cover colors,
+   description, and link (paste your Gumroad / Payhip / Stripe payment link). */
+const BOOKS=[
+ {title:"The Lazy Cook",author:"A. Rivera",price:"$9",emoji:"🍳",c:["#ff7a59","#ffb347"],desc:"45 weeknight dinners that need 5 ingredients or fewer. Simple, fast, and genuinely tasty.",link:"#"},
+ {title:"Quiet Mornings",author:"J. Park",price:"$7",emoji:"🌅",c:["#4facfe","#7c5cff"],desc:"A short guide to building a calm, focused morning routine that actually sticks.",link:"#"},
+ {title:"The Lantern Maker",author:"M. Okafor",price:"$5",emoji:"🏮",c:["#f5576c","#a83279"],desc:"A short fantasy novella about a village where every lantern holds a memory.",link:"#"},
+ {title:"Pocket Budget",author:"S. Lindqvist",price:"$12",emoji:"💰",c:["#11998e","#38ef7d"],desc:"Take control of your money in 30 days with plain-English steps and printable trackers.",link:"#"},
+ {title:"Trail Notes",author:"D. Alvarez",price:"$8",emoji:"🥾",c:["#42275a","#734b6d"],desc:"Beginner-friendly hiking tips, gear lists, and trail journaling prompts.",link:"#"},
+ {title:"Tiny Garden",author:"L. Chen",price:"$6",emoji:"🌱",c:["#56ab2f","#a8e063"],desc:"Grow herbs and veggies on a balcony or windowsill, even if you have never gardened.",link:"#"}
+];
+const $=s=>document.querySelector(s),root=document.documentElement;
+const cover=b=>`<div class="cover" style="background:linear-gradient(145deg,${b.c[0]},${b.c[1]})"><div class="em">${b.emoji}</div><div><div class="t">${b.title}</div><div class="a">${b.author}</div></div></div>`;
+$('#grid').innerHTML=BOOKS.map((b,i)=>`<div class="book reveal" data-i="${i}" style="transition-delay:${i*80}ms">${cover(b)}<h3>${b.title}</h3><div class="price">${b.price}</div></div>`).join('');
+$('#grid').addEventListener('click',e=>{const el=e.target.closest('.book');if(!el)return;const b=BOOKS[el.dataset.i];
+ $('#sheet').innerHTML=`<button class="x" aria-label="Close">×</button>${cover(b)}<div><h2 style="text-align:left;margin:0 0 4px">${b.title}</h2><div style="color:var(--muted);margin-bottom:14px">by ${b.author}</div><p>${b.desc}</p><p class="price sans" style="font-size:1.4rem;color:var(--accent);font-weight:700">${b.price}</p><a class="btn" href="${b.link}" target="_blank" rel="noopener">Buy &amp; download</a></div>`;
+ $('#modal').classList.add('open')});
+$('#modal').addEventListener('click',e=>{if(e.target.id==='modal'||e.target.classList.contains('x'))$('#modal').classList.remove('open')});
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+$('#joinBtn').onclick=()=>{const v=$('#email').value.trim();$('#joinMsg').textContent=/\S+@\S+\.\S+/.test(v)?'Thanks! Check your inbox soon. ✨':'Please enter a valid email.'};
+
+/* ===== Look customizer ===== */
+const PRESETS=[["#7c5cff","#ff5c93"],["#0ea5e9","#22d3ee"],["#f97316","#facc15"],["#10b981","#84cc16"],["#e11d48","#9333ea"]];
+$('#sw').innerHTML=PRESETS.map((p,i)=>`<button data-i="${i}" style="background:linear-gradient(135deg,${p[0]},${p[1]})" aria-label="Color preset ${i+1}"></button>`).join('');
+const setColors=(a,b)=>{root.style.setProperty('--accent',a);root.style.setProperty('--accent2',b);$('#c1').value=a;$('#c2').value=b};
+$('#sw').onclick=e=>{const b=e.target.closest('button');if(b)setColors(...PRESETS[b.dataset.i])};
+$('#c1').oninput=e=>root.style.setProperty('--accent',e.target.value);
+$('#c2').oninput=e=>root.style.setProperty('--accent2',e.target.value);
+$('#font').onchange=e=>root.style.setProperty('--font',e.target.value);
+$('#theme').onchange=e=>{const v=e.target.value;if(v==='auto')root.removeAttribute('data-theme');else root.setAttribute('data-theme',v)};
+$('#anim').onchange=e=>document.body.dataset.anim=e.target.checked?'on':'off';
+$('#fab').onclick=()=>$('#panel').classList.toggle('open');
+</script>
+</body>
+</html>
